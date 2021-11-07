@@ -13,11 +13,9 @@ import ChatRoomItem from "../components/ChatRoomItem";
 import chatRoomsData from "../assets/dummy-data/ChatRooms";
 import Toast from "react-native-toast-message";
 import Auth from "@aws-amplify/auth";
+import LogoutButton from "./../components/LogoutButton/LogoutButton";
 
 export default function TabOneScreen() {
-  const logout = () => {
-    Auth.signOut();
-  };
   return (
     <View style={styles.page}>
       <FlatList
@@ -30,23 +28,10 @@ export default function TabOneScreen() {
           </TouchableOpacity>
         )}
       />
-      <Pressable
-        onPress={logout}
-        style={{
-          backgroundColor: "white",
-          height: 50,
-          // padding: 10,
-          alignItems: "center",
-          justifyContent: "center",
-          margin: 10,
-          borderRadius: 50,
-        }}
-      >
-        <Text style={{ color: Colors.signalColor, fontSize: 22 }}>Logout</Text>
-      </Pressable>
+      <LogoutButton />
     </View>
   );
 }
 const styles = StyleSheet.create({
-  page: { backgroundColor: Colors.signalColor, flex: 1 },
+  page: { backgroundColor: "white", flex: 1 },
 });

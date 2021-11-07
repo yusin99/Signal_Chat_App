@@ -4,7 +4,6 @@
  *
  */
 import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
   DefaultTheme,
@@ -18,23 +17,16 @@ import {
   Pressable,
   useWindowDimensions,
 } from "react-native";
-
 import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/HomeScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
+import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import ChatRoomScreen from "./../screens/ChatRoomScreen";
 import HomeScreen from "./../screens/HomeScreen";
 import { Text } from "react-native";
 import { View } from "react-native";
+import UsersScreen from "./../screens/UsersScreen";
 import { useNavigation } from "@react-navigation/core";
 
 export default function Navigation({
@@ -87,6 +79,19 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen
+        name="UsersScreen"
+        component={UsersScreen}
+        options={{
+          title: "All Users",
+          headerShown: true,
+          headerTintColor: "white",
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: Colors.signalColor,
+          },
+        }}
+      />
+      <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
@@ -99,7 +104,7 @@ function RootNavigator() {
 }
 const HomeHeader = (props: any) => {
   const { width } = useWindowDimensions();
-
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -107,7 +112,6 @@ const HomeHeader = (props: any) => {
         justifyContent: "space-between",
         width,
         paddingVertical: 10,
-        // paddingHorizontal: 5,
         alignItems: "center",
       }}
     >
@@ -135,12 +139,18 @@ const HomeHeader = (props: any) => {
         color="white"
         style={{ marginHorizontal: 10 }}
       />
-      <Feather
-        name="edit-2"
-        size={24}
-        color="white"
-        style={{ marginRight: 30, marginLeft: 10 }}
-      />
+      <Pressable
+        onPress={() => {
+          navigation.navigate("UsersScreen");
+        }}
+      >
+        <Feather
+          name="edit-2"
+          size={24}
+          color="white"
+          style={{ marginRight: 30, marginLeft: 10 }}
+        />
+      </Pressable>
     </View>
   );
 };

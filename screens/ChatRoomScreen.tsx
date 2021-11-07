@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
-  View,
   StyleSheet,
-  Text,
   FlatList,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 import Message from "./../components/Message/Message";
 import chatRoomData from "../assets/dummy-data/Chats";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import MessageInput from "./../components/MessageInput/MessageInput";
 import { useNavigation, useRoute } from "@react-navigation/core";
 
 const ChatRoomScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  navigation.setOptions({ title: "Elon Musk" });
+  useEffect(() => {
+    navigation.setOptions({ title: "Elon Musk" });
+  }, []);
+
   const idRoom = route.params?.id;
   return (
     <SafeAreaView style={styles.page}>
